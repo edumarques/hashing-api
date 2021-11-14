@@ -10,7 +10,7 @@ composer clear-cache
 bin/console doctrine:database:create --if-not-exists
 
 # Wait until DB is up and ready for connections
-until bin/console doctrine:query:sql "select 1" >/dev/null 2>&1; do
+until bin/console dbal:run-sql "select 1" >/dev/null 2>&1; do
   (echo >&2 "Waiting for MySQL to be ready...")
   sleep 1
 done
