@@ -20,7 +20,7 @@ make build-d
 make up-d
 ```
 
-There is more helpful commands as well using `make`:
+There are more helpful commands as well using `make`:
 ```text
 help            Shows this help
 build           Build all docker images from docker-compose.yml
