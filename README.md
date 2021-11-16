@@ -21,7 +21,7 @@ make up-d
 ```
 
 There is more helpful commands as well using `make`:
-```shell
+```text
 help            Shows this help
 build           Build all docker images from docker-compose.yml
 build-d         Detached mode: Build all docker images from docker-compose.yml
