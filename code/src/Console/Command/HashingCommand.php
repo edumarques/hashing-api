@@ -4,33 +4,32 @@ declare(strict_types=1);
 
 namespace App\Console\Command;
 
-use App\Entity\HashingBatch;
 use App\Controller\HashingController;
+use App\Entity\HashingBatch;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class HashingCommand extends Command
 {
-    protected const ARGUMENT_STRING_TO_HASH     = 'string';
+    protected const ARGUMENT_STRING_TO_HASH = 'string';
     protected const OPTION_CONSECUTIVE_REQUESTS = 'requests';
 
     protected static $defaultName = 'avato:test';
 
     protected static $defaultDescription = 'Generate md5 hashes from a string and number of requests';
-
 
     public function __construct(
         protected HttpClientInterface $client,
@@ -40,10 +39,6 @@ class HashingCommand extends Command
         parent::__construct();
     }
 
-
-    /**
-     * @inheritDoc
-     */
     protected function configure(): void
     {
         $this
@@ -59,7 +54,6 @@ class HashingCommand extends Command
                 default: 1
             );
     }
-
 
     /**
      * @inheritDoc
@@ -78,7 +72,7 @@ class HashingCommand extends Command
             return Command::FAILURE;
         }
 
-        $hashingUrl   = $this->router->generate(name: 'hash', referenceType: UrlGeneratorInterface::ABSOLUTE_URL);
+        $hashingUrl = $this->router->generate(name: 'hash', referenceType: UrlGeneratorInterface::ABSOLUTE_URL);
         $stringToHash = $input->getArgument(self::ARGUMENT_STRING_TO_HASH);
 
         $startDate = new \DateTime();
@@ -109,7 +103,6 @@ class HashingCommand extends Command
         return Command::SUCCESS;
     }
 
-
     protected function setUpOutput(
         OutputInterface $output,
         \DateTimeInterface $startDate,
@@ -117,14 +110,13 @@ class HashingCommand extends Command
         string $stringToHash,
         \stdClass $responseData
     ): void {
-        $output->writeln("--- Iteration $iteration ({$startDate->format('Y-m-d H:i:s')}) ---");
-        $output->writeln("String to hash: $stringToHash");
-        $output->writeln("Hash: $responseData->hash");
-        $output->writeln("Key: $responseData->key");
-        $output->writeln("Attempts: $responseData->attempts");
+        $output->writeln("--- Iteration ${iteration} ({$startDate->format('Y-m-d H:i:s')}) ---");
+        $output->writeln("String to hash: ${stringToHash}");
+        $output->writeln("Hash: {$responseData->hash}");
+        $output->writeln("Key: {$responseData->key}");
+        $output->writeln("Attempts: {$responseData->attempts}");
         $output->writeln('------');
     }
-
 
     protected function persistHashingBatch(
         \DateTimeInterface $startDate,

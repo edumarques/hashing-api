@@ -19,12 +19,10 @@ abstract class AbstractCustomHash
 
     protected ?int $attempts = null;
 
-
     public function getHash(): string
     {
         return $this->hash;
     }
-
 
     public function setHash(string $hash): self
     {
@@ -32,33 +30,21 @@ abstract class AbstractCustomHash
         return $this;
     }
 
-
-    /**
-     * @return string|null
-     */
     public function getAlgorithm(): ?string
     {
         return $this->algorithm;
     }
 
-
-    /**
-     * @param string|null $algorithm
-     *
-     * @return AbstractCustomHash
-     */
     public function setAlgorithm(?string $algorithm): AbstractCustomHash
     {
         $this->algorithm = $algorithm;
         return $this;
     }
 
-
     public function getKey(): ?string
     {
         return $this->key;
     }
-
 
     public function setKey(?string $key): self
     {
@@ -66,12 +52,10 @@ abstract class AbstractCustomHash
         return $this;
     }
 
-
     public function getAttempts(): ?int
     {
         return $this->attempts;
     }
-
 
     public function setAttempts(?int $attempts): self
     {
