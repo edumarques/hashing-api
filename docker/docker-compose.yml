@@ -25,7 +25,8 @@ services:
     environment:
       APP_ENV: ${APP_ENV:-dev}
       APP_SECRET: ${APP_SECRET:-secret}
-      DATABASE_URL: mysql://${DATABASE_USER:-root}:${DATABASE_PASSWORD:-nopassword}@database:3306/${DATABASE_NAME:-app}?serverVersion=5.7
+      DATABASE_URL: mysql://${DATABASE_USER:-root}:${DATABASE_PASSWORD:-nopassword}@database:3306/${DATABASE_NAME:-app}
+      DEFAULT_BASE_URL: ${DEFAULT_BASE_URL:-http://172.17.0.1}
     volumes:
       - ..:/app
 
