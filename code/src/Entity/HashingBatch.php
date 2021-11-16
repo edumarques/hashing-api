@@ -7,6 +7,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @codeCoverageIgnore
  * @ORM\Entity(repositoryClass="App\Repository\HashingBatchRepository")
  * @ORM\Table(name="hashing_batch")
  */
